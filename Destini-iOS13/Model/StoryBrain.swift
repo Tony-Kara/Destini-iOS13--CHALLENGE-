@@ -8,4 +8,26 @@
 
 import Foundation
 
-
+struct StoryBrain {
+    
+    var userLocation = 0
+    let stories = [
+        
+        Story(title: "You see a fork in the road.", choice1: "Take a left.", choice2: "Take a right."),
+        Story(title: "You see a tiger", choice1: "shout for help", choice2: "play dead"),
+        Story(title: "You see a treasure chest", choice1: "Open it", choice2: "Check for traps")
+        
+    ]
+    
+    mutating func nextStory( _ userChoice: String) -> Int {
+        if userChoice == stories[userLocation].choice1 {
+            userLocation +=  1
+            return userLocation
+        }
+        else {
+            userLocation +=  2
+            return userLocation
+        }
+    }
+    
+}

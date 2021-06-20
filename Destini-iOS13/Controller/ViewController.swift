@@ -9,64 +9,43 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var storyLabel: UILabel!
     @IBOutlet weak var choice1Button: UIButton!
     @IBOutlet weak var choice2Button: UIButton!
     
- 
+    var storyBrain = StoryBrain()
     var userLocation = 0
-    let stories = [
     
-                    Story(title: "You see a fork in the road.", choice1: "Take a left.", choice2: "Take a right."),
-                    Story(title: "You see a tiger", choice1: "shout for help", choice2: "play dead"),
-                    Story(title: "You see a treasure chest", choice1: "Open it", choice2: "Check for traps")
-                    
-    ]
-    
-       
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let example = Story(title: stories[userLocation].title, choice1: stories[userLocation].choice1, choice2: stories[userLocation].choice2)
+        
+        let example = Story(title: storyBrain.stories[userLocation].title, choice1: storyBrain.stories[userLocation].choice1, choice2: storyBrain.stories[userLocation].choice2)
         storyLabel.text = example.title
         choice1Button.setTitle("\(example.choice1)", for: .normal)
         choice2Button.setTitle("\(example.choice2)", for: .normal)
-
+        
     }
     
     
     @IBAction func choiceMade(_ sender: UIButton) {
-    
-    
         
-        if sender.currentTitle == choice1Button.currentTitle {
-            userLocation +=  1
-            print(userLocation)
-            print(sender.currentTitle!)
-            updateUI()
-           
-          }
-        else {
-            userLocation +=  2
-            print(userLocation)
-            updateUI()
-           
-        }
-    
-    }
+        userLocation =  storyBrain.nextStory(sender.currentTitle!)
+        updateUI(userLocation)
+       }
     
     
-    func updateUI() {
-        let example = Story(title: stories[userLocation].title, choice1: stories[userLocation].choice1, choice2: stories[userLocation].choice2)
+    func updateUI(_ userLocation: Int) {
+        let example = Story(title: storyBrain.stories[userLocation].title, choice1: storyBrain.stories[userLocation].choice1, choice2: storyBrain.stories[userLocation].choice2)
         storyLabel.text = example.title
         choice1Button.setTitle("\(example.choice1)", for: .normal)
         choice2Button.setTitle("\(example.choice2)", for: .normal)
     }
-
-
+    
+    
 }
 
