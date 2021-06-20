@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var choice2Button: UIButton!
     
     var storyBrain = StoryBrain()
-    var userLocation = 0
+    
     
     
     
@@ -23,27 +23,23 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        let example = Story(title: storyBrain.stories[userLocation].title, choice1: storyBrain.stories[userLocation].choice1, choice2: storyBrain.stories[userLocation].choice2)
-        storyLabel.text = example.title
-        choice1Button.setTitle("\(example.choice1)", for: .normal)
-        choice2Button.setTitle("\(example.choice2)", for: .normal)
+        updateUI()
         
     }
     
     
     @IBAction func choiceMade(_ sender: UIButton) {
         
-        userLocation =  storyBrain.nextStory(sender.currentTitle!)
-        updateUI(userLocation)
-       }
+        storyBrain.nextStory(sender.currentTitle!)
+        updateUI()
+    }
     
     
-    func updateUI(_ userLocation: Int) {
-        let example = Story(title: storyBrain.stories[userLocation].title, choice1: storyBrain.stories[userLocation].choice1, choice2: storyBrain.stories[userLocation].choice2)
-        storyLabel.text = example.title
-        choice1Button.setTitle("\(example.choice1)", for: .normal)
-        choice2Button.setTitle("\(example.choice2)", for: .normal)
+    func updateUI() {
+        
+        storyLabel.text = storyBrain.getStoryTitle()
+        choice1Button.setTitle("\(storyBrain.getChoice1())", for: .normal)
+        choice2Button.setTitle("\(storyBrain.getChoice2())", for: .normal)
     }
     
     
